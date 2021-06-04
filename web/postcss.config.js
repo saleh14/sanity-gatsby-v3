@@ -1,17 +1,9 @@
+const pImport = require('postcss-import')
+const pUrl = require('postcss-url')
+const pMedia = require('postcss-custom-media')
+const  pNesting= require('postcss-nesting')
 module.exports = () => ({
   plugins: [
-    require("postcss-preset-env")({
-      stage: 3,
-      features: {
-        "color-mod-function": { unresolved: "warn" },
-        "nesting-rules": true,
-        "custom-media-queries": {
-          preserve: false,
-        },
-        "custom-properties": {
-          preserve: false,
-        },
-      },
-    }),
+  pImport(),pUrl(),pNesting(),pMedia()
   ],
 });
