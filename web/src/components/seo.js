@@ -12,9 +12,13 @@ function SEO({ description, lang, meta, keywords, title, image }) {
   const siteTitle = site.title || "";
   const siteAuthor = site.author?.name || "";
   const metaImage = image?.asset
-    ? imageUrlFor(buildImageObj(image)).width(1200).format('jpg').quality(65).url()
+    ?  imageUrlFor(buildImageObj(image))
+              .width(800)
+              .height(800)
+              .fit("crop").format('jpg').quality(65)
+              .auto("format")
+              .url()
     : "";
-
   return (
     <Helmet
       htmlAttributes={{ lang }}
@@ -43,7 +47,7 @@ function SEO({ description, lang, meta, keywords, title, image }) {
         },
         {
           name: "twitter:card",
-          content: "summary",
+          content: "summary_large_image",
         },
         {
           name: "twitter:creator",
