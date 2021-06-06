@@ -12,7 +12,7 @@ function SEO({ description, lang, meta, keywords, title, image }) {
   const siteTitle = site.title || "";
   const siteAuthor = site.author?.name || "";
   const metaImage = image?.asset
-    ? imageUrlFor(buildImageObj(image)).width(1200).url()
+    ? imageUrlFor(buildImageObj(image)).width(1200).format('jpg').quality(65).url()
     : "";
 
   return (
