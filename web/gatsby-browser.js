@@ -5,3 +5,13 @@
  */
 
 // You can delete this file if you're not using it
+const React = require('react')
+const provider = require('./src/lib/MemberContext')
+const { ProviderWrapper } = provider
+exports.wrapRootElement = ({ element }) => {
+  return (
+    <ProviderWrapper>
+      {element}
+    </ProviderWrapper>
+  )
+}

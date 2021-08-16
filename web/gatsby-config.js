@@ -12,6 +12,7 @@ module.exports = {
     "gatsby-plugin-postcss",
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",
+  "gatsby-plugin-webpack-bundle-analyser-v2" ,
     {
       resolve: "gatsby-source-sanity",
       options: {
@@ -22,4 +23,4 @@ module.exports = {
       },
     },
   ],
-};
+}
