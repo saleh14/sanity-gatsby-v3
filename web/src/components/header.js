@@ -1,5 +1,5 @@
 import { Link } from "gatsby";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Icon from "./icon";
 import { cn } from "../lib/helpers";
 
@@ -8,7 +8,6 @@ import { MemberContext } from "../lib/MemberContext";
 
 const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => {
   const { auth, logout } = useContext(MemberContext)
-  console.log({ auth })
 
   return (
     <div className={styles.root}>
@@ -17,7 +16,7 @@ const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => {
           <Link to="/">{siteTitle}</Link>
         </div>
         {
-          auth && <div><button onClick={() => logout()}>log me out</button> <h3>{auth.user().display_name}</h3> </div>
+          auth && auth?.user?.() && < div ><button onClick={() => logout()}>log me out</button> <h3>{auth?.user?.()?.display_name}</h3> </div>
         }
 
         <button

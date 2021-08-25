@@ -7,10 +7,10 @@ const puppeteer = require('puppeteer-core');
   });
   const page = await browser.newPage();
   await page.setViewport({ width: 1366, height: 768 });
-  await page.goto('http://localhost:8000/member');
+  await page.goto('http://localhost:8888/member');
   await page.waitForSelector('input[type=email]')
   await page.focus('input[type=email]')
-  await page.keyboard.type('saleh.mearaj@gmail.com')
+  await page.keyboard.type('saleh.mahdi12@gmail.com')
   await page.focus('input[type=password]')
   await page.keyboard.type('82546sas')
   await page.keyboard.press('Enter')

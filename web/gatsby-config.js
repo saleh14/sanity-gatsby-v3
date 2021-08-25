@@ -12,9 +12,16 @@ if (process.env.RUN_ANALYSER)
   conditionalPlugin.push("gatsby-plugin-webpack-bundle-analyser-v2")
 module.exports = {
   plugins: [
+    `gatsby-plugin-netlify`,
     "gatsby-plugin-postcss",
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",
+    {
+      resolve: 'gatsby-plugin-brotli',
+      options: {
+        extensions: ['css', 'html', 'js', 'svg']
+      }
+    },
     {
       resolve: "gatsby-source-sanity",
       options: {

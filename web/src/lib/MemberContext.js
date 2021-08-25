@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const MemberContext = React.createContext(null);
+export const MemberContext = React.createContext({});
 
 export const ProviderWrapper = ({ children }) => {
   const [auth, setAuth] = React.useState(null)
