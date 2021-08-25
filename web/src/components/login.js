@@ -1,23 +1,23 @@
 import { navigate } from '@reach/router'
 import React, { useContext, useState } from 'react'
-// import { MemberContext } from '../lib/MemberContext'
+import { MemberContext } from '../lib/MemberContext'
 import { auth } from '../lib/nhost'
 
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  // const { updateAuth } = useContext(MemberContext)
+  const { updateAuth } = useContext(MemberContext)
 
   async function handleSubmit(e) {
     e.preventDefault()
     // login
     try {
       await auth.login({ email, password })
-      // updateAuth(auth)
+      updateAuth(auth)
     } catch (error) {
       alert('error logging in')
       console.error(error)
-      // updateAuth(null)
+      updateAuth(null)
       return
     }
     // if (typeof window !== undefined)
