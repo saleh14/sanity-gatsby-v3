@@ -1,14 +1,12 @@
+import { useAuth } from '@nhost/react-auth'
+import { useQuery } from 'urql'
 
-import { useAuth } from "@nhost/react-auth"
-import { useQuery, gql } from "@apollo/client";
+import { auth } from '../lib/nhost'
+import React, { useContext, useEffect, useState } from 'react'
+import { MemberContext } from '../lib/MemberContext'
+import Login from './login'
 
-import { auth } from "../lib/nhost"
-import React, { useContext, useEffect, useState } from "react"
-import { MemberContext } from "../lib/MemberContext"
-import Login from "./login"
-
-
-const GET_MEMBERSHIP_COURSE_QUERY = gql`
+const GET_MEMBERSHIP_COURSE_QUERY = `
   query get_course_membership {
     users {
       user_members {
@@ -16,17 +14,18 @@ const GET_MEMBERSHIP_COURSE_QUERY = gql`
           type
         }
       }
-      user_courses{
-        course{
+      user_courses {
+        course {
           name
         }
       }
     }
   }
-`;
+`
 
 function MemberDefault() {
-  const { data, error, loading: queryLoading } = useQuery(GET_MEMBERSHIP_COURSE_QUERY)
+  const [result, refetch] = useQuery({ query: GET_MEMBERSHIP_COURSE_QUERY })
+  const { data, fetching, error } = result
   const { signedIn } = useAuth()
   const { updateAuth, logout } = useContext(MemberContext)
   const [loading, setLoading] = useState(true)
@@ -34,33 +33,26 @@ function MemberDefault() {
     setTimeout(async () => {
       await new Promise(r => setTimeout(r, 500))
       setLoading(false)
-      if (signedIn)
-        updateAuth(auth)
+      if (signedIn !== null) updateAuth(auth)
     })
   }, [signedIn])
   console.log(auth.user())
-  const logoutButton = <button onClick={() => logout()} >Logout</button>
-  return <div>
-    {!loading ? signedIn ? logoutButton : <Login /> : <div></div>}
-    {
-      !loading & signedIn ? (
-        < div >
-          {
-            queryLoading && <pre>Loading</pre>}
-          {
-            error && <pre>
-              Error in GET_MEMBERSHIP_QUERY
-              {JSON.stringify(error, null, 2)}
-            </pre>
-
-          }
-          {
-            data && <pre>{JSON.stringify(data, null, 2)}</pre>
-          }
-
-        </div>
-      ) : null
-    }
-  </div>
+  const logoutButton = <button onClick={() => logout()}>Logout</button>
+  if (fetching) return <div>Loading..</div>
+  if (!signedIn) return <Login />
+  if (error) {
+    console.error(error)
+    setTimeout(() => {
+      refetch()
+    }, 100)
+  }
+  return (
+    <div>
+      <div>
+        {fetching && <pre>Loading</pre>}
+        {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+      </div>
+    </div>
+  )
 }
 export default MemberDefault
