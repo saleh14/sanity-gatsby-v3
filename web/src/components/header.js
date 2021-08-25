@@ -1,10 +1,10 @@
-import { Link } from "gatsby";
-import React, { useContext, useEffect, useState } from "react";
-import Icon from "./icon";
-import { cn } from "../lib/helpers";
+import { Link } from 'gatsby'
+import React, { useContext, useEffect, useState } from 'react'
+import Icon from './icon'
+import { cn } from '../lib/helpers'
 
-import * as styles from "./header.module.css";
-import { MemberContext } from "../lib/MemberContext";
+import * as styles from './header.module.css'
+import { MemberContext } from '../lib/MemberContext'
 
 const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => {
   const { auth, logout } = useContext(MemberContext)
@@ -14,15 +14,15 @@ const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => {
       <div className={styles.wrapper}>
         <div className={styles.branding}>
           <Link to="/">{siteTitle}</Link>
+          {auth && auth?.user?.() && (
+            <div>
+              <button onClick={() => logout()}>log me out</button>{' '}
+              <h3>{auth?.user?.()?.display_name}</h3>{' '}
+            </div>
+          )}
         </div>
-        {
-          auth && auth?.user?.() && < div ><button onClick={() => logout()}>log me out</button> <h3>{auth?.user?.()?.display_name}</h3> </div>
-        }
 
-        <button
-          className={styles.toggleNavButton}
-          onClick={showNav ? onHideNav : onShowNav}
-        >
+        <button className={styles.toggleNavButton} onClick={showNav ? onHideNav : onShowNav}>
           <Icon symbol="hamburger" />
         </button>
 
@@ -34,7 +34,7 @@ const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => {
           </ul>
         </nav>
       </div>
-    </div >
+    </div>
   )
 }
-export default Header;
+export default Header

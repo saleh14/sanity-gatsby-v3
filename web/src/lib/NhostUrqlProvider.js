@@ -2,6 +2,7 @@ import React from 'react'
 import fetch from 'isomorphic-unfetch'
 import ws from 'isomorphic-ws'
 import { authExchange } from '@urql/exchange-auth'
+import { retryExchange } from '@urql/exchange-retry'
 import {
   dedupExchange,
   // debugExchange,
@@ -95,6 +96,13 @@ export function generateUrqlClient(
       dedupExchange,
       // debugExchange,
       cacheExchange,
+      retryExchange({
+        initialDelayMs: 1000,
+        maxDelayMs: 15000,
+        randomDelay: true,
+        maxNumberAttempts: 2,
+        retryIf: err => err && err.networkError,
+      }),
       authExchange({
         getAuth,
         addAuthToOperation,

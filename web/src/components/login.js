@@ -1,24 +1,25 @@
-import { navigate } from "@reach/router";
-import React, { useContext, useState } from "react";
-import { MemberContext } from "../lib/MemberContext";
-import { auth } from "../lib/nhost";
+import { navigate } from '@reach/router'
+import React, { useContext, useState } from 'react'
+import { MemberContext } from '../lib/MemberContext'
+import { auth } from '../lib/nhost'
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const { updateAuth } = useContext(MemberContext)
 
   async function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
     // login
     try {
-      await auth.login({ email, password });
+      await auth.login({ email, password })
+      updateAuth(auth)
     } catch (error) {
-      alert("error logging in");
-      console.error(error);
-      return;
+      alert('error logging in')
+      console.error(error)
+      updateAuth(null)
+      return
     }
-    updateAuth(auth)
     // if (typeof window !== undefined)
     //   navigate(-1)
   }
@@ -31,13 +32,13 @@ function Login() {
           type="email"
           placeholder="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
         />
         <button>Login</button>
       </form>

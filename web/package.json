@@ -30,6 +30,7 @@
     "@sanity/image-url": "^0.140.22",
     "@urql/core": "^2.3.1",
     "@urql/exchange-auth": "^0.1.6",
+    "@urql/exchange-retry": "^0.3.0",
     "date-fns": "^2.23.0",
     "gatsby": "^3.11.1",
     "gatsby-plugin-brotli": "^2.0.0",

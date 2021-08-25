@@ -19,6 +19,8 @@
 }
 
 .branding {
+  display: flex;
+  gap: 2em;
   font-weight: 600;
   flex: 1;
 
