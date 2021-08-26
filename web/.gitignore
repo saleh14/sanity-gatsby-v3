@@ -69,3 +69,6 @@ yarn.lock
 
 # Secrets
 .env.development
+# @netlify/plugin-gatsby ignores start
+functions/gatsby
+# @netlify/plugin-gatsby ignores end
