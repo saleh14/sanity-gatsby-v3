@@ -1,5 +1,5 @@
 export default function resolveProductionUrl(document) {
-  return `https://sanity-gatsby-v-3.netlify.app/blog/${document.slug.current}`
+  return `https://sanitygatsbyv3main11892.gatsbyjs.io/blog/${document.slug.current}`;
 }
 
  
