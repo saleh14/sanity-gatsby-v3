@@ -4,10 +4,10 @@ import { MdPerson, MdDescription, MdLocalOffer } from "react-icons/md";
 import IframePreview from "../previews/IframePreview";
 
 // Web preview configuration
-const remoteURL = "https://sanity-gatsby-v-3.netlify.app";
-const localURL = "http://localhost:8000";
-const previewURL =
-  window.location.hostname === "localhost" ? localURL : remoteURL;
+const remoteURL = "https://preview-sanitygatsbyv3main11892.gtsb.io";
+const localURL = "https://preview-sanitygatsbyv3main11892.gtsb.io";
+const previewURL = "https://preview-sanitygatsbyv3main11892.gtsb.io";
+window.location.hostname === "localhost" ? localURL : remoteURL;
 
 export const getDefaultDocumentNode = (props) => {
   /**

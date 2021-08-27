@@ -1,5 +1,4 @@
 export default function resolveProductionUrl(document) {
-  return `https://sanitygatsbyv3main11892.gatsbyjs.io/blog/${document.slug.current}`;
+  console.log({ documentSlug: document && document.slug });
+  return `https://preview-sanitygatsbyv3main11892.gtsb.io/blog/${document.slug.current}`;
 }
-
- 
