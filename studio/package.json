@@ -6,6 +6,7 @@
   "author": "Sanity <hello@sanity.io>",
   "scripts": {
     "dev": "sanity start",
+    "login": "sanity login",
     "format": "prettier-eslint --write \"**/*.js\" \"!node_modules/**\"",
     "build": "sanity build",
     "graphql-deploy": "sanity graphql deploy --playground",
