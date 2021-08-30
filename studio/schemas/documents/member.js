@@ -37,13 +37,17 @@ export default {
       name: "city",
       type: "string",
     },
-    { name: "memberships", type: "array", of: [{ type: "membership" }] },
+    {
+      name: "memberships",
+      type: "array",
+      of: [{ type: "membership" }],
+    },
     { name: "activities", type: "array", of: [{ type: "activity" }] },
   ],
   preview: {
     select: {
       title: "name",
-      subtitle: "city",
+      subtitle: "memberships.0.type.type",
       media: "image",
     },
   },

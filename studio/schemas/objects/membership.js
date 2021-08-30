@@ -12,8 +12,6 @@ export default {
     { name: "confirmedAt", type: "datetime" },
   ],
   preview: {
-    select: {
-      title: "type.0.type",
-    },
+    select: { title: "type.type" },
   },
 };
