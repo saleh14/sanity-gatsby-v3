@@ -5,6 +5,7 @@ import { MemberContext } from '../lib/MemberContext'
 import Login from './login'
 import UserProfile from '../components/UserProfile'
 function MemberDefault() {
+auth.register()
   const { signedIn } = useAuth()
   const { updateAuth, logout } = useContext(MemberContext)
   useEffect(() => {
