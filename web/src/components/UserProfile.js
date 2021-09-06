@@ -1,7 +1,5 @@
 import { useQuery } from 'urql'
-import { auth } from '../lib/nhost'
 import React, { useContext, useEffect, useState } from 'react'
-import Login from './login'
 
 const GET_MEMBERSHIP_COURSE_QUERY = `
   query get_course_membership {

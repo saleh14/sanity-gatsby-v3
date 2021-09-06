@@ -1,10 +1,9 @@
-import { createClient } from "nhost-js-sdk";
+import { createClient } from 'nhost-js-sdk'
 
 const config = {
-  baseURL: "https://backend-e7c479eb.nhost.app",
-};
+  baseURL: 'https://backend-86297f6e.nhost.app',
+}
 
-const { auth, storage } = createClient(config);
+const { auth, storage } = createClient(config)
 
-
-export { auth, storage };
+export { auth, storage }

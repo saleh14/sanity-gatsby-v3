@@ -31,7 +31,7 @@ export default {
     },
     {
       name: "email",
-      type: "email",
+      type: "string",
     },
     {
       name: "city",

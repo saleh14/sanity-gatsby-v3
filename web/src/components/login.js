@@ -6,13 +6,21 @@ import { auth } from '../lib/nhost'
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [fullName, setFullName] = useState('')
   const { updateAuth } = useContext(MemberContext)
+  const [isNewUser, setIsNewUser] = useState(false)
 
   async function handleSubmit(e) {
     e.preventDefault()
     // login
     try {
-      await auth.login({ email, password })
+      if (isNewUser)
+        await auth.register({
+          email,
+          password,
+          options: { userData: { dispay_name: fullName } },
+        })
+      else await auth.login({ email, password })
       updateAuth(auth)
     } catch (error) {
       alert('error logging in')
@@ -40,8 +48,17 @@ function Login() {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-        <button>Login</button>
+        {isNewUser && (
+          <input
+            placeholder="Full Name.. e.g: Saleh Ali"
+            value={fullName}
+            onChange={e => setFullName(e.target.value)}
+          />
+        )}
+        <button>{isNewUser ? 'Register' : 'Login'}</button>
       </form>
+      <label htmlFor="isNew"> Register </label>
+      <input id="isNew" type="checkbox" onChange={() => setIsNewUser(checked => !checked)} />
     </div>
   )
 }

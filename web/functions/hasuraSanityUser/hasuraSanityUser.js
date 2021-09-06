@@ -1,12 +1,11 @@
 // with thanks to https://github.com/vnovick/netlify-function-example/blob/master/functions/bad-words.js
 const axios = require('axios')
 const sanityClient = require('@sanity/client')
-const nanoid = require('nanoid').nanoid
 
 const hgeEndpoint = process.env.HASURA_END_POINT
 const hasuraSecret = process.env.HASURA_ADMIN_SECRET
-
 const sanityDataset = process.env.GATSBY_SANITY_DATASET || 'production'
+
 const client = sanityClient({
   projectId: 'vj470dvu',
   dataset: sanityDataset,
@@ -22,6 +21,7 @@ const GET_EMAIL_QUERY = `
       account {
         email
       }
+      display_name
     }
   }
 `
@@ -35,13 +35,16 @@ const handler = async event => {
   }
 
   const { data = {} } = request
+  console.log(data)
 
-  const variables = {
-    id: data.new.id,
-  }
+  console.log(variables)
 
+  let userDetail
   try {
-    const { data } = await axios.post(
+    const variables = {
+      id: data && data.new && data.new.id,
+    }
+    userDetail = await axios.post(
       `${hgeEndpoint}/v1alpha1/graphql`,
       {
         query: GET_EMAIL_QUERY,
@@ -54,8 +57,21 @@ const handler = async event => {
         },
       },
     )
+    console.log(userDetail.data.data.users_by_pk.display_name)
+  } catch (error) {
+    console.log({ eerror: error })
+    return { statusCode: 500, body: error.toString() }
+  }
 
-    return { statusCode: 200, body: 'success' }
+  try {
+    const newUser = {
+      _id: data.new.id,
+      _type: 'member',
+      name: userDetail.data.data.users_by_pk.display_name,
+      email: userDetail.data.data.users_by_pk.account.email,
+    }
+    const result = await client.createIfNotExists(newUser)
+    return { statusCode: 200, body: result }
   } catch (error) {
     return { statusCode: 500, body: error.toString() }
   }

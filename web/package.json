@@ -45,6 +45,7 @@
     "gatsby-plugin-react-helmet": "^4.11.0",
     "gatsby-source-sanity": "^7.0.7",
     "graphql": "^15.5.1",
+    "graphql-request": "^3.5.0",
     "isomorphic-unfetch": "^3.1.0",
     "jwt-decode": "^2.2.0",
     "nanoid": "^3.1.25",

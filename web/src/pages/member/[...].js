@@ -18,7 +18,7 @@ const App = () => {
         <NhostAuthProvider auth={auth}>
           <NhostUrqlProvider
             auth={auth}
-            gqlEndpoint="https://hasura-e7c479eb.nhost.app/v1/graphql"
+            gqlEndpoint="https://hasura-86297f6e.nhost.app/v1/graphql"
           >
             <Router basepath="/member">
               <Login path="/login" />
