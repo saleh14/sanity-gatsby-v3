@@ -18,7 +18,7 @@ function Login() {
         await auth.register({
           email,
           password,
-          options: { userData: { dispay_name: fullName } },
+          options: { userData: { display_name: fullName }, allowedRoles: ['user', 'me'] },
         })
       else await auth.login({ email, password })
       updateAuth(auth)
