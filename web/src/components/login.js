@@ -26,6 +26,11 @@ function Login() {
       alert('error logging in')
       console.error(error)
       updateAuth(null)
+      try {
+        auth.logout()
+      } catch (e) {
+        console.log({ e })
+      }
       return
     }
     // if (typeof window !== undefined)

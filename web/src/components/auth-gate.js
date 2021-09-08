@@ -3,10 +3,9 @@ import { auth } from '../lib/nhost'
 import React, { useContext, useEffect, useState } from 'react'
 import { MemberContext } from '../lib/MemberContext'
 import Login from './login'
-import UserProfile from '../components/UserProfile'
-function MemberDefault() {
+function AuthGate({ children }) {
   const { signedIn } = useAuth()
-  const { updateAuth, logout } = useContext(MemberContext)
+  const { updateAuth } = useContext(MemberContext)
   useEffect(() => {
     setTimeout(async () => {
       await new Promise(r => setTimeout(r, 10))
@@ -16,10 +15,6 @@ function MemberDefault() {
   }, [signedIn])
   if (signedIn === null) return <div></div>
   if (!signedIn) return <Login />
-  return (
-    <div>
-      <UserProfile />
-    </div>
-  )
+  return children
 }
-export default MemberDefault
+export default AuthGate

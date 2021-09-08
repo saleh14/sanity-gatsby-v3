@@ -1,5 +1,6 @@
 import { useQuery } from 'urql'
 import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'gatsby'
 
 const GET_MEMBERSHIP_COURSE_QUERY = `
   query get_course_membership {
@@ -38,7 +39,7 @@ function LoadingSuspend() {
   return <div></div>
 }
 
-function UerProfile() {
+function UserProfile() {
   const [result, refetch] = useQuery({ query: GET_MEMBERSHIP_COURSE_QUERY })
   const { data, fetching, error } = result
   if (fetching) return <LoadingSuspend />
@@ -50,8 +51,9 @@ function UerProfile() {
   }
   return (
     <div>
+      <Link to="/member/join">Join</Link>
       <div>{data && <pre>{JSON.stringify(data, null, 2)}</pre>}</div>
     </div>
   )
 }
-export default UerProfile
+export default UserProfile

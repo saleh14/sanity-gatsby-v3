@@ -7,9 +7,10 @@ import Container from '../../components/container'
 import GraphQLErrorList from '../../components/graphql-error-list'
 import Seo from '../../components/seo'
 import Layout from '../../containers/layout'
-import MemberDefault from '../../components/memberDefault'
 import { MemberContext } from '../../lib/MemberContext'
 import { NhostUrqlProvider } from '../../lib/NhostUrqlProvider'
+import AuthGate from '../../components/auth-gate'
+import UserProfile from '../../components/UserProfile'
 
 const App = () => {
   return (
@@ -20,10 +21,12 @@ const App = () => {
             auth={auth}
             gqlEndpoint="https://hasura-86297f6e.nhost.app/v1/graphql"
           >
-            <Router basepath="/member">
-              <Login path="/login" />
-              <MemberDefault path="/" />
-            </Router>
+            <AuthGate>
+              <Router basepath="/member">
+                <Login path="/login" />
+                <UserProfile path="/" />
+              </Router>
+            </AuthGate>
           </NhostUrqlProvider>
         </NhostAuthProvider>
       </Container>
