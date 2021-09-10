@@ -1,19 +1,5 @@
 // with thanks to https://github.com/vnovick/netlify-function-example/blob/master/functions/bad-words.js
-const axios = require('axios')
-const sanityClient = require('@sanity/client')
-
-const hgeEndpoint = process.env.HASURA_END_POINT
-const hasuraSecret = process.env.HASURA_ADMIN_SECRET
-const sanityDataset = process.env.GATSBY_SANITY_DATASET || 'production'
-
-const client = sanityClient({
-  projectId: 'vj470dvu',
-  dataset: sanityDataset,
-  apiVersion: 'v1',
-  ignoreBrowserTokenWarning: true,
-  token: process.env.SANITY_TOKEN,
-  useCdn: false, // `false` if you want to ensure fresh data
-})
+const { axiosInstance, sanityClient } = require('../../src/lib/functions/perparation')
 
 const GET_EMAIL_QUERY = `
   query getEmail($id: uuid!) {
@@ -42,19 +28,10 @@ const handler = async event => {
       id: data && data.new && data.new.id,
     }
     console.log({ variables })
-    userDetail = await axios.post(
-      `${hgeEndpoint}/v1alpha1/graphql`,
-      {
-        query: GET_EMAIL_QUERY,
-        variables,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-hasura-admin-secret': hasuraSecret,
-        },
-      },
-    )
+    userDetail = await axiosInstance.post(`/`, {
+      query: GET_EMAIL_QUERY,
+      variables,
+    })
     if (userDetail && userDetail.data && userDetail.data.data)
       console.log(userDetail.data.data.users_by_pk.display_name)
     else console.log('userDetail.data error')
@@ -70,7 +47,7 @@ const handler = async event => {
       name: userDetail.data.data.users_by_pk.display_name,
       email: userDetail.data.data.users_by_pk.account.email,
     }
-    const result = await client.createIfNotExists(newUser)
+    const result = await sanityClient.createIfNotExists(newUser)
     return { statusCode: 200, body: result }
   } catch (error) {
     return { statusCode: 500, body: error.toString() }
