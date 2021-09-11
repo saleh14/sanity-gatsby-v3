@@ -1,6 +1,7 @@
 // with thanks to https://github.com/vnovick/netlify-function-example/blob/master/functions/bad-words.js
 const { axiosInstance, sanityClient } = require('../../src/lib/functions/perparation')
 
+const hgeEndpoint = process.env.HASURA_END_POINT
 const GET_EMAIL_QUERY = `
   query getEmail($id: uuid!) {
     users_by_pk(id: $id) {
@@ -24,11 +25,13 @@ const handler = async event => {
 
   let userDetail
   try {
+
     const variables = {
       id: data && data.new && data.new.id,
     }
     console.log({ variables })
-    userDetail = await axiosInstance.post(`/`, {
+
+    userDetail = await axiosInstance.post(hgeEndpoint, {
       query: GET_EMAIL_QUERY,
       variables,
     })
@@ -36,7 +39,8 @@ const handler = async event => {
       console.log(userDetail.data.data.users_by_pk.display_name)
     else console.log('userDetail.data error')
   } catch (error) {
-    console.log({ eerror: error })
+    console.log('Errror')
+    console.log(error)
     return { statusCode: 500, body: error.toString() }
   }
 

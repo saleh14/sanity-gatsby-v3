@@ -8,11 +8,9 @@ const sanityClient = require('@sanity/client')({
   useCdn: false, // `false` if you want to ensure fresh data
 })
 
-const hgeEndpoint = process.env.HASURA_END_POINT
 const hasuraSecret = process.env.HASURA_ADMIN_SECRET
 
 const axiosInstance = axios.create({
-  baseUrl: `${hgeEndpoint}/v1alpha1/graphql`,
   headers: {
     'Content-Type': 'application/json',
     'x-hasura-admin-secret': hasuraSecret,
