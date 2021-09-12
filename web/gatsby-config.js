@@ -13,6 +13,7 @@ if (process.env.RUN_ANALYSER)
 module.exports = {
   plugins: [
     'gatsby-plugin-gatsby-cloud',
+    'gatsby-plugin-netlify',
     'gatsby-plugin-postcss',
     'gatsby-plugin-preact',
     'gatsby-plugin-image',

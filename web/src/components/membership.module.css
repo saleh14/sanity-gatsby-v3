@@ -1,0 +1,41 @@
+.card {
+  max-width: 500px;
+  position: relative;
+  background-color: #fcebd0ae;
+  border-radius: 1em;
+  transform: translateX(1em);
+  padding: 1.5em;
+}
+.card b {
+  position: absolute;
+  display: block;
+  inset: 1em;
+  text-align: end;
+  color:cornflowerblue;
+}
+.wrap :is(h1, h2, h3) {
+  margin-block: 0;
+  margin-bottom: 0.4em;
+}
+.wrap {
+  direction: rtl;
+  text-align: right;
+  display: grid;
+  grid-template-rows: max-content;
+  gap: 1.5em;
+}
+
+.cta {
+  display: grid;
+  height: 80px;
+  background-color: #413a8e4a;
+  place-items: center;
+  width: max-content;
+  padding-inline: 1em;
+  border-radius: 1em;
+}
+
+.cta a {
+  text-decoration: none;
+  color: #413a8e;
+}

@@ -9,8 +9,8 @@ import Seo from '../../components/seo'
 import Layout from '../../containers/layout'
 import { MemberContext } from '../../lib/MemberContext'
 import { NhostUrqlProvider } from '../../lib/NhostUrqlProvider'
-import AuthGate from '../../components/auth-gate'
-import UserProfile from '../../components/UserProfile'
+import AuthGate from '../../components/privateRoutes/auth-gate'
+import UserProfile from '../../components/privateRoutes/UserProfile'
 
 const App = () => {
   return (
