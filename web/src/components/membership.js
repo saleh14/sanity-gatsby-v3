@@ -1,14 +1,14 @@
 import { Link } from 'gatsby'
 import { auth } from '../lib/nhost'
 import { Router } from '@reach/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import LayoutContainer from '../containers/layout'
 import Container from './container'
 import * as styles from './membership.module.css'
 import AuthGate from './privateRoutes/auth-gate'
 import { NhostApolloProvider } from '@nhost/react-apollo'
 import { NhostUrqlProvider } from '../lib/NhostUrqlProvider'
-import { NhostAuthProvider } from '@nhost/react-auth'
+import { NhostAuthProvider, useAuth } from '@nhost/react-auth'
 import Login from './login'
 import UserProfile from './privateRoutes/UserProfile'
 
@@ -26,6 +26,32 @@ const membershipData = [
       'وهم الأعضاء ذوي التخصص والاهتمام الذين يتواصلون مع الجمعية بصورة دائمة من قريب أو بعيد. ولا يلزم العضو المنتسب بدفع أي رسوم وإنما هو أمر اختياري للعضو المنتسب.',
   },
 ]
+
+const PreSignUP = () => {
+  const { signedIn } = useAuth()
+  const [state, setState] = useState(false)
+  const [show, setShow] = useState(true)
+  useEffect(() => {
+    setTimeout(async () => {
+      if (state === 'hide') setShow(false)
+    }, 333)
+  }, [state])
+  console.log({ signedIn })
+  if (signedIn || signedIn === null) return null
+  return (
+    <>
+      {show && (
+        <div data-hide={state} className={styles.preSignup}>
+          <div>
+            <b>الخطوة الأولى </b>
+            إنشاء حساب لك
+          </div>
+          <button onClick={() => setState('hide')}>إغلاق</button>
+        </div>
+      )}
+    </>
+  )
+}
 
 const Membership = () => {
   const [showNextStep, setShowNextStep] = useState(false)
@@ -46,15 +72,21 @@ const Membership = () => {
               auth={auth}
               gqlEndpoint="https://hasura-86297f6e.nhost.app/v1/graphql"
             >
-              {showNextStep === false ? (
-                <h2 className={styles.cta}>
-                  <a onClick={() => setShowNextStep(true)}> الاشتراك في إحدى العضويات</a>
-                </h2>
-              ) : (
-                <AuthGate>
-                  <UserProfile path="/" />
-                </AuthGate>
-              )}
+              <section>
+                {showNextStep && <PreSignUP />}
+                {showNextStep === false ? (
+                  <h3 className={styles.cta}>
+                    <a onClick={() => setShowNextStep(true)}>
+                      الاشتراك في إحدى العضويات
+                      <b> ←</b>
+                    </a>
+                  </h3>
+                ) : (
+                  <AuthGate>
+                    <UserProfile path="/" />
+                  </AuthGate>
+                )}
+              </section>
             </NhostUrqlProvider>
           </NhostAuthProvider>
         </div>

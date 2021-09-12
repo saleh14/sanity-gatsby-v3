@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 .card {
   max-width: 500px;
   position: relative;
@@ -11,7 +14,7 @@
   display: block;
   inset: 1em;
   text-align: end;
-  color:cornflowerblue;
+  color: cornflowerblue;
 }
 .wrap :is(h1, h2, h3) {
   margin-block: 0;
@@ -27,15 +30,43 @@
 
 .cta {
   display: grid;
-  height: 80px;
   background-color: #413a8e4a;
   place-items: center;
   width: max-content;
-  padding-inline: 1em;
   border-radius: 1em;
+  cursor: pointer;
+  color: #413a8e;
 }
 
 .cta a {
+  padding: 1em;
   text-decoration: none;
+  opacity: 0.8;
+  transition: ease-out 0.2s;
+}
+.cta a:hover {
   color: #413a8e;
+  opacity: 1;
+}
+
+.preSignup {
+  position: absolute;
+  inset: 0;
+  background-color: darkcyan;
+  color: whitesmoke;
+  transition: ease-in-out 0.25s;
+  padding-block: 1em;
+  padding-inline: 1em;
+  transform: translateX(1em);
+  border-radius: 1em;
+}
+
+.preSignup[data-hide='hide'] {
+  opacity: 0;
+}
+
+section {
+  position: relative;
+  max-width: 500px;
+  display: grid;
 }

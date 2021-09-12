@@ -31,6 +31,12 @@ const Header = ({ onHideNav, onShowNav, showNav, siteTitle }) => {
             <li>
               <Link to="/archive/">Archive</Link>
             </li>
+            <li>
+              <Link to="/membership/">Membership</Link>
+            </li>
+            <li>
+              <Link to="/member/">User Profile</Link>
+            </li>
           </ul>
         </nav>
       </div>
