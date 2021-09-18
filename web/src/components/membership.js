@@ -11,6 +11,7 @@ import { NhostUrqlProvider } from '../lib/NhostUrqlProvider'
 import { NhostAuthProvider, useAuth } from '@nhost/react-auth'
 import Login from './login'
 import UserProfile from './privateRoutes/UserProfile'
+import MembershipForm from './privateRoutes/membership-form'
 
 const membershipData = [
   {
@@ -46,7 +47,9 @@ const PreSignUP = () => {
             <b>الخطوة الأولى </b>
             إنشاء حساب لك
           </div>
-          <button onClick={() => setState('hide')}>إغلاق</button>
+          <button data-testid="prenext" onClick={() => setState('hide')}>
+            إغلاق
+          </button>
         </div>
       )}
     </>
@@ -76,14 +79,14 @@ const Membership = () => {
                 {showNextStep && <PreSignUP />}
                 {showNextStep === false ? (
                   <h3 className={styles.cta}>
-                    <a onClick={() => setShowNextStep(true)}>
+                    <a data-testid="next" onClick={() => setShowNextStep(true)}>
                       الاشتراك في إحدى العضويات
                       <b> ←</b>
                     </a>
                   </h3>
                 ) : (
                   <AuthGate>
-                    <UserProfile path="/" />
+                    <MembershipForm />
                   </AuthGate>
                 )}
               </section>

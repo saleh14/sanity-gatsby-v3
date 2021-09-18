@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
 .card {
   max-width: 500px;
   position: relative;
@@ -9,6 +10,7 @@
   transform: translateX(1em);
   padding: 1.5em;
 }
+
 .card b {
   position: absolute;
   display: block;
@@ -16,10 +18,12 @@
   text-align: end;
   color: cornflowerblue;
 }
+
 .wrap :is(h1, h2, h3) {
   margin-block: 0;
   margin-bottom: 0.4em;
 }
+
 .wrap {
   direction: rtl;
   text-align: right;
@@ -39,11 +43,13 @@
 }
 
 .cta a {
+  display: block;
   padding: 1em;
   text-decoration: none;
   opacity: 0.8;
   transition: ease-out 0.2s;
 }
+
 .cta a:hover {
   color: #413a8e;
   opacity: 1;

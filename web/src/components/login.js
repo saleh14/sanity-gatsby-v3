@@ -60,7 +60,7 @@ function Login() {
             onChange={e => setFullName(e.target.value)}
           />
         )}
-        <button>{isNewUser ? 'Register' : 'Login'}</button>
+        <button type="submit" data-testid='loginBtn'>{isNewUser ? 'Register' : 'Login'}</button>
       </form>
       <label htmlFor="isNew"> Register </label>
       <input id="isNew" type="checkbox" onChange={() => setIsNewUser(checked => !checked)} />
